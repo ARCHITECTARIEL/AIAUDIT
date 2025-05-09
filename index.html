@@ -68,12 +68,37 @@
   </div>
 
   <script>
-    const sections = {
-      operations: [...],
-      sales: [...],
-      marketing: [...],
-      strategy: [...]
-    };
+  const sections = {
+  operations: [
+    "Do you manually assign tasks or reminders?",
+    "Do you chase updates or status checks?",
+    "Are SOPs followed inconsistently?",
+    "Do you check multiple platforms for updates?",
+    "Would saving 5–10 hours/week help you lead better?"
+  ],
+  sales: [
+    "Do leads go more than 5 minutes without a follow-up?",
+    "Are you manually qualifying or tagging prospects?",
+    "Is one person (maybe you) chasing every deal?",
+    "Are cold leads sitting untouched?",
+    "Would instant, consistent outreach help you close more?"
+  ],
+  marketing: [
+    "Are you creating content from scratch every week?",
+    "Do campaigns fail to adjust based on performance?",
+    "Are posts or emails inconsistent — or MIA?",
+    "Are DMs/comments left hanging?",
+    "Would personalized, always-on outreach help you grow?"
+  ],
+  strategy: [
+    "Do your tools talk to each other (CRM, calendar, email)?",
+    "Do you switch tabs 100x/day to get things done?",
+    "Are you missing a live view of ops or ROI?",
+    "Want to grow without hiring more people?",
+    "Would a system that thinks like you change the game?"
+  ]
+};
+
 
     let score = { operations: 0, sales: 0, marketing: 0, strategy: 0 };
     let currentSection = "operations";
