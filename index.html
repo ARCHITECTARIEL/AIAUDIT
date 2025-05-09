@@ -69,10 +69,10 @@
 
   <script>
     const sections = {
-      operations: ["Do you manually assign tasks or reminders?", "Do you chase updates or status checks?", "Are SOPs followed inconsistently?", "Do you check multiple platforms for updates?", "Would saving 5–10 hours/week help you lead better?"],
-      sales: ["Do leads go more than 5 minutes without a follow-up?", "Are you manually qualifying or tagging prospects?", "Is one person (maybe you) chasing every deal?", "Are cold leads sitting untouched?", "Would instant, consistent outreach help you close more?"],
-      marketing: ["Are you creating content from scratch every week?", "Do campaigns fail to adjust based on performance?", "Are posts or emails inconsistent — or MIA?", "Are DMs/comments left hanging?", "Would personalized, always-on outreach help you grow?"],
-      strategy: ["Do your tools talk to each other (CRM, calendar, email)?", "Do you switch tabs 100x/day to get things done?", "Are you missing a live view of ops or ROI?", "Want to grow without hiring more people?", "Would a system that thinks like you change the game?"]
+      operations: [...],
+      sales: [...],
+      marketing: [...],
+      strategy: [...]
     };
 
     let score = { operations: 0, sales: 0, marketing: 0, strategy: 0 };
@@ -87,4 +87,88 @@
         <button class="osoBtn" onclick="answer(true)">✅ Yes</button>
         <button class="osoBtn" onclick="answer(false)">❌ No</button>
       `;
-      updateProgress
+      updateProgressBar();
+    }
+
+    function updateProgressBar() {
+      const total = Object.values(sections).flat().length;
+      const answered = Object.values(score).reduce((a, b) => a + b, 0);
+      document.getElementById("osoProgressBar").style.width = `${(answered / total) * 100}%`;
+    }
+
+    function getNextSection(current) {
+      const keys = Object.keys(sections);
+      const i = keys.indexOf(current);
+      return keys[i + 1] || null;
+    }
+
+    function answer(isYes) {
+      if (isYes) score[currentSection]++;
+      currentIndex++;
+      if (currentIndex < sections[currentSection].length) {
+        showQuestion(currentSection, currentIndex);
+      } else {
+        const next = getNextSection(currentSection);
+        if (next) {
+          currentSection = next;
+          currentIndex = 0;
+          showQuestion(currentSection, currentIndex);
+        } else {
+          collectUserInfo();
+        }
+      }
+    }
+
+    function collectUserInfo() {
+      document.getElementById("osoQuestionContainer").innerHTML = `
+        <h3>You're AI-Ready 🧠</h3>
+        <p>Drop your info and we’ll send your custom AI Map + Video</p>
+        <input placeholder="Your Name" id="nameField" />
+        <input placeholder="Your Email" id="emailField" />
+        <br>
+        <button class="osoBtn" onclick="submitData()">📤 Submit</button>
+      `;
+    }
+
+    function submitData() {
+      const userName = document.getElementById("nameField").value;
+      const userEmail = document.getElementById("emailField").value;
+      const topAreas = Object.entries(score).filter(([_, v]) => v >= 2).map(([k]) => k);
+
+      const payload = {
+        name: userName,
+        email: userEmail,
+        operations: score.operations,
+        sales: score.sales,
+        marketing: score.marketing,
+        strategy: score.strategy,
+        topAreas: topAreas
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbz6CbGbTJ3wErlVLb6Px2Q-gBB60w9uSYpg6Jl6MQD6odWN_lTCAetGe7M5_YUqwKUr/exec", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(() => {
+        document.getElementById("osoQuestionContainer").innerHTML = `
+          <h3>✅ All Set</h3>
+          <p>Your OSOfied AI Audit has been submitted.</p>
+          <a href="https://meetings-na2.hubspot.com/fernandez?uuid=22e7a209-d562-4db4-931a-8a1aaa638c3b" target="_blank">
+            <button class="osoBtn">📅 Book Your Free Audit</button>
+          </a>
+        `;
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.getElementById("osoAuditBtn");
+      btn.onclick = () => {
+        document.getElementById("osoAuditWidget").style.display = "block";
+        btn.style.display = "none";
+        showQuestion(currentSection, currentIndex);
+      };
+    });
+  </script>
+</body>
+</html>
