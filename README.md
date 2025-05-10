@@ -1,15 +1,23 @@
 # OSO AI Readiness Audit
 
-This is the OSOfied, self-contained AI audit quiz to help businesses quickly discover where AI Agents can drive the most value.
+This is a self-assessment quiz designed to help business owners evaluate how ready they are to implement AI agents into their operations, sales, marketing, and strategy.
 
-## Features
-- 🔍 Self-assessment quiz across operations, sales, marketing, and strategy
-- 📤 Sends results to Google Sheets
-- 📅 Prompts user to book an audit call
-- 📱 Fully mobile responsive
+## 🧠 Features
+- Interactive multi-section audit (Operations, Sales, Marketing, Strategy)
+- Custom progress bar
+- Final submission to Google Sheets via Apps Script Web App
+- Dynamic UI with summary + booking link
 
-## Deployment
-Just upload this to your GitHub repo and connect it to Netlify. Netlify will serve `index.html` as the default homepage.
+## 🚀 How to Deploy
+1. Clone or upload to Netlify, GitHub Pages, or GoDaddy (HTML upload).
+2. Make sure the fetch() call in `index.html` points to your published Google Apps Script URL.
+3. Test the form end-to-end — submissions should appear in your connected Google Sheet.
 
-## Credits
-Created by OSO Consulting — Bold AI. Honest Influence.
+## 🛠 Technologies Used
+- HTML/CSS/JS (Vanilla)
+- Google Apps Script (for backend)
+- Google Sheets (for storage)
+- HubSpot link for meeting scheduling
+
+## 🔗 Live Demo
+[https://your-netlify-site-url.com](https://your-netlify-site-url.com)
