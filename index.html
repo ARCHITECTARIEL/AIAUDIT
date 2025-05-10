@@ -124,7 +124,7 @@
     function updateProgressBar() {
       const total = Object.values(sections).flat().length;
       const answered = Object.values(score).reduce((a, b) => a + b, 0);
-      document.getElementById("osoProgressBar").style.width = `${(answered / total) * 100}%`;
+      document.getElementById("osoProgressBar").style.width = \`\${(answered / total) * 100}%\`;
     }
 
     function getNextSection(current) {
@@ -178,8 +178,8 @@
 
       fetch("https://script.google.com/macros/s/AKfycbz6CbGbTJ3wErlVLb6Px2Q-gBB60w9uSYpg6Jl6MQD6odWN_lTCAetGe7M5_YUqwKUr/exec", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" }
       })
       .then(response => {
         if (!response.ok) throw new Error("Network response was not ok");
