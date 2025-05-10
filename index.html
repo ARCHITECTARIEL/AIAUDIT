@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +93,7 @@
     function updateProgressBar() {
       const total = Object.values(sections).flat().length;
       const answered = Object.values(score).reduce((a, b) => a + b, 0);
-      document.getElementById("osoProgressBar").style.width = \`\${(answered / total) * 100}%\`;
+      document.getElementById("osoProgressBar").style.width = `${(answered / total) * 100}%`;
     }
 
     function getNextSection(current) {
@@ -146,7 +145,7 @@
         topAreas: topAreas
       };
 
-      fetch("https://script.google.com/macros/s/AKfycbzkYrCzDaTbkHy3Z9iXlgtMkrGmyUk9fUqA02nyZC_ld6Sl6OtPpLyrdfplx_rceK6A/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbz6CbGbTJ3wErlVLb6Px2Q-gBB60w9uSYpg6Jl6MQD6odWN_lTCAetGe7M5_YUqwKUr/exec", {
         method: "POST",
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" }
